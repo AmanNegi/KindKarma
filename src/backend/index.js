@@ -15,7 +15,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/KindKarma').then(()=>{
     console.log(err)
 })
 app.post('/volunteer',async (req,res)=>{
-    console.log(req.body.volunteer1)
+    console.log(req.body.volunteer)
     // req.body in the form user,password 
     // to check valide email or not
     // double authentication
@@ -24,7 +24,7 @@ app.post('/volunteer',async (req,res)=>{
    res.send("Sucess")
 })
 app.post('/organizer',async (req,res) =>{
-    console.log(req.body.organizer1)
+    console.log(req.body.organizer)
      const organizer1 =new organizer(req.body.organizer);
     await organizer1.save()
    res.send("Sucess")
