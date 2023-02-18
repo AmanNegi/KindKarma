@@ -9,7 +9,6 @@ app.use(
   })
 );
 app.use(bodyParser.json());
-const port = 3000;
 //const path=require('path');
 const mongoose = require("mongoose");
 const organizer = require("./model/organizer");
@@ -111,6 +110,6 @@ app.get("/logout", async (req, res) => {
 app.get("/list", async (req, res) => {
   res.send(await list.find({})); // sending in format of list
 });
-app.listen(port, () => {
+app.listen(process.env.PORT || 3000, () => {
   console.log(`Backend running on port ${port}`);
 });
