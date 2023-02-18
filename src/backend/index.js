@@ -110,6 +110,8 @@ app.get("/logout", async (req, res) => {
 app.get("/list", async (req, res) => {
   res.send(await list.find({})); // sending in format of list
 });
-app.listen(process.env.PORT || 3000, () => {
-  console.log(`Backend running on port ${port}`);
+
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Listening on git${port}...`);
 });
