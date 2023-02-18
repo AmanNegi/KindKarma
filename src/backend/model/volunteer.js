@@ -1,6 +1,10 @@
 const mangoose=require('mongoose');
 const Schema=mangoose.Schema
 const volunteer =new Schema({
+ email: {
+  type: String,
+  required: true
+},
  username: {
         type: String,
         required: true
