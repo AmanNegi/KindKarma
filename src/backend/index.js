@@ -1,4 +1,5 @@
 const express = require('express')
+const list=require('./model/listVolunteering');
 var session = require('express-session');
 const app = express()
 var bodyParser = require('body-parser');
@@ -100,6 +101,9 @@ app.get('/login/volunteer', async (req, res) => {
 })
 app.get('/logout',async (req,res)=>{
   // if any know how to destroy session implement
+})
+app.get('/list',async(req,res) =>{
+ res.send(await list.find({})) // sending in format of JSON
 })
 app.listen(port, () => {
   console.log(`Backend running on port ${port}`)
