@@ -101,9 +101,10 @@ app.get('/login/volunteer', async (req, res) => {
 })
 app.get('/logout',async (req,res)=>{
   // if any know how to destroy session implement
+  res.send("logOut")
 })
 app.get('/list',async(req,res) =>{
- res.send(await list.find({})) // sending in format of JSON
+ res.send(await list.find({})) // sending in format of list
 })
 app.listen(port, () => {
   console.log(`Backend running on port ${port}`)
