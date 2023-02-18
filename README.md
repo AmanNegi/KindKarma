@@ -1,1 +1,1 @@
-"# KindKarma" 
+# KindKarma
