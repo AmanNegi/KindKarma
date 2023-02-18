@@ -1,5 +1,10 @@
 const express = require('express')
 const app = express()
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+app.use(bodyParser.json());
 const port = 3000
 //const path=require('path');
 const mongoose =require('mongoose')
@@ -15,19 +20,22 @@ mongoose.connect('mongodb://127.0.0.1:27017/KindKarma').then(()=>{
     console.log(err)
 })
 app.post('/volunteer',async (req,res)=>{
-    console.log(req.body.volunteer)
+    console.log(req.body)
     // req.body in the form user,password 
     // to check valide email or not
     // double authentication
-    const volunteer1 =new volunteer(req.body.volunteer);
+    const volunteer1 =new volunteer(req.body);
     await volunteer1.save()
    res.send("Sucess")
 })
 app.post('/organizer',async (req,res) =>{
-    console.log(req.body.organizer)
-     const organizer1 =new organizer(req.body.organizer);
+    console.log(req.body)// if you want you can just keep req.body.organizer care should be taken in sending response
+     const organizer1 =new organizer(req.body);
     await organizer1.save()
    res.send("Sucess")
+})
+app.get('/',async (req,res)=>{
+    res.send("connected")
 })
 app.listen(port, () => {
   console.log(`Backend running on port ${port}`)
