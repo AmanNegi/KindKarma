@@ -6,7 +6,7 @@ Color accentColor = Colors.lightBlue;
 Color darkColor = Colors.blue;
 // Color darkColor = const Color(0xFF2E5043);
 
-goToPage(BuildContext context, Widget destination, {bool clearStack = false}) {
+Future goToPage(BuildContext context, Widget destination, {bool clearStack = false}) {
   if (clearStack) {
     return Navigator.of(context).pushAndRemoveUntil(
         MaterialPageRoute(builder: (context) => destination), (route) => false);

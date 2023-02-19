@@ -15,6 +15,7 @@ router.post("/demo-add", async (req, res) => {
 
 router.post("/add", async (req, res) => {
   //TODO: Add Checks Here
+  console.log("Body Data ", req.body);
   var event = new VolunteeringEvent(req.body);
   await event.save();
 
