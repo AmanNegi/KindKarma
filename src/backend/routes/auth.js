@@ -1,8 +1,13 @@
 var router = require("express").Router();
-
+const session = require('express-session');
 const Organizer = require("../model/organizer");
 const Volunteer = require("../model/volunteer");
-
+router.use(session({
+    secret: 'KindKarma',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: true }
+  }));
 router.get("/", async (req, res) => {
   return res.json("Let's authenticate");
 });
@@ -24,6 +29,9 @@ router.get("/login/organizer", async (req, res) => {
     // if any body know better idea on session just implement
     // req.session.user = user;
     // ***** here sesion code ***
+     req.session.email = req.query.email;
+    req.session.person="organizer";
+    console.log(req.session.email)
     res.status(200).json(check[0]); // or use findOne method
     return;
   }
@@ -48,6 +56,10 @@ router.get("/login/volunteer", async (req, res) => {
     // if any body know better idea on session just implement
     // req.session.user = user;
     // ***** here sesion code ***
+     req.session.email = req.query.email;
+    req.session.person="volunteer";
+    console.log(req.session.email)
+    console.log(req.session.person)
     res.status(200).json({ data: check[0], message: "Logged in successfully" }); // or use findOne method
     return;
   }
@@ -62,11 +74,14 @@ router.post("/signup/volunteer", async (req, res) => {
       .status(400)
       .json({ message: "A User with this email already exists" });
   }
+   if (emailPasswordCheck(req.body.email)){
   const newVolunteer = new Volunteer(req.body);
   await newVolunteer.save();
   return res
     .status(200)
     .json({ message: "Congrats! You have signed in successfully!" });
+   }
+   return res.status(400).json("Not a Valid email");
 });
 
 router.post("/signup/organizer", async (req, res) => {
@@ -78,23 +93,31 @@ router.post("/signup/organizer", async (req, res) => {
       .status(400)
       .json({ message: "A User with this email already exists" });
   }
+    if (emailPasswordCheck(req.body.email)){
   const newOrganizer = new Organizer(req.body);
   await newOrganizer.save();
   return res
     .status(200)
     .json({ message: "Congrats! You have signed in successfully!" });
+    }
+   return res.status(400).json("Not a Valid email");
 });
 
-//TODO: Implement this method
 router.get("/logout", async (req, res) => {
   // if any know how to destroy session implement
-  res.json("logOut");
+  console.log(req.session.email+"let observe")
+  req.session.destroy(function(err) {
+    if (err) {
+      console.log(err);
+    } else {
+      // redirect to the login page or wherever you want
+      res.json("logOut");
+    }
+  });
 });
-
-function emailPasswordCheck(email, pass) {
-  const Emailregex = new RegExp("/^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3}");
-  const passRegex = new RegExp("?=.*[a-z]"); // for no I added simple password checker
-  return regex.test(email) && passRegex.test(pass);
+function emailPasswordCheck(email) {
+    var regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+  return regex.test(email);
 }
 
 module.exports = router;
