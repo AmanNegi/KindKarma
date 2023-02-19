@@ -3,8 +3,8 @@ import './app.css';
 
 import Home from './components/home/Home';
 import  SignUp  from  './components/SignUp/SignUp' ;
-import logIn  from  './components/logIn/logIn' ;
-import   volunteerlist from  './components/VolunterList/volunteerlist' ;
+//import logIn  from  './components/logIn/logIn' ;
+//import   volunteerlist from  './components/VolunterList/volunteerlist' ;
 
 function App() {
   return (
