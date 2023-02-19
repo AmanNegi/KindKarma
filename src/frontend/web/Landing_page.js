@@ -31,18 +31,18 @@ export default function SplitScreen() {
             </Text>
             <br />{' '}
             <Text color={'green.400'} as={'span'}>
-              Design Projects
+             Find Volunteer Events
             </Text>{' '}
           </Heading>
           <Text fontSize={{ base: 'md', lg: 'lg' }} color={'gray.500'}>
-            A platform 
+            A platform to make a positive change in the world.
           </Text>
           <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
           
             <Link to="/Signup">
             <Button
               rounded={'full'}
-              bg={'blue.400'}
+              bg={'green.400'}
               color={'white'}
               _hover={{
                 bg: 'green.500',
