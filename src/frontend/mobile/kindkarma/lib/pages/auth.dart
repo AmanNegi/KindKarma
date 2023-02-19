@@ -2,8 +2,13 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:kindkarma/data/api.dart';
 import 'package:kindkarma/globals.dart';
+import 'package:kindkarma/pages/home_page.dart';
+import 'package:kindkarma/responsive.dart';
+import 'package:kindkarma/widgets/AnimatedBackground.dart';
 import 'package:kindkarma/widgets/action_button.dart';
 
 class AuthPage extends StatefulWidget {
@@ -14,8 +19,7 @@ class AuthPage extends StatefulWidget {
   AuthPageState createState() => AuthPageState();
 }
 
-class AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
-  late AnimationController animationController;
+class AuthPageState extends State<AuthPage> {
   String email = "", password = "", userName = "";
   late double height, width;
   PageController controller = PageController(initialPage: 0);
@@ -23,19 +27,11 @@ class AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
 
   @override
   void initState() {
-    animationController = AnimationController(
-      vsync: this,
-      duration: const Duration(seconds: 20),
-      lowerBound: 0,
-      upperBound: pi,
-    );
     super.initState();
-    animationController.repeat(reverse: false);
   }
 
   @override
   void dispose() {
-    animationController.dispose();
     controller.dispose();
     super.dispose();
   }
@@ -46,53 +42,31 @@ class AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
     width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: Container(
-                decoration: BoxDecoration(color: accentColor),
-              ),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: Container(
+              decoration: BoxDecoration(color: accentColor),
             ),
-            Positioned(
-              top: 0,
-              right: 0,
-              left: 0,
-              bottom: 0,
-              child: AnimatedBuilder(
-                animation: animationController,
-                builder: (context, child) {
-                  return RotationTransition(
-                    turns: Tween(begin: 0.0, end: 1.0)
-                        .animate(animationController),
-                    // angle: animationController.value,
-                    child: child,
-                  );
-                },
-                child: ScaleTransition(
-                  scale:
-                      Tween(begin: 0.0, end: 1.0).animate(animationController),
-
-                  // scale: isLoading ? 0.75 : 1.5,
-                  child: SvgPicture.asset(
-                    "assets/paths.svg",
-                    color: Colors.white.withOpacity(0.2),
-                  ),
-                ),
-              ),
-            ),
-            Center(
-              child: SvgPicture.asset("assets/logo.svg"),
-            ),
-            Positioned(
-              top: 0.1 * getHeight(context),
-              left: 0,
-              right: 0,
-              bottom: 0,
-              child: _getCard(context),
-            ),
-          ],
-        ),
+          ),
+          const Positioned(
+            top: 0,
+            right: 0,
+            left: 0,
+            bottom: 0,
+            child: AnimatedBackground(),
+          ),
+          Center(
+            child: SvgPicture.asset("assets/logo.svg"),
+          ),
+          Positioned(
+            top: 0.1 * getHeight(context),
+            left: 0,
+            right: 0,
+            bottom: 0,
+            child: _getCard(context),
+          ),
+        ],
       ),
     );
   }
@@ -108,7 +82,10 @@ class AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
 
   _getForm(BuildContext context, bool isLogin) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20.0),
+      padding: EdgeInsets.symmetric(
+        horizontal:
+            Responsive.isMobile(context) ? 20.0 : 0.3 * getWidth(context),
+      ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -148,11 +125,31 @@ class AuthPageState extends State<AuthPage> with TickerProviderStateMixin {
                         isLoading = true;
                         setState(() {});
 
-                        await Future.delayed(const Duration(seconds: 5));
+                        dynamic response;
+                        if (isLogin) {
+                          response = await login(email, password, "volunteer");
+                        } else {
+                          response = await signUp(
+                              email, password, userName, "volunteer");
+                        }
+
+                        if (response.statusCode == 200) {
+                          Fluttertoast.showToast(
+                              msg:
+                                  "${isLogin ? "Logged In " : "Sign Up "} Successful");
+
+                          if (mounted) {
+                            goToPage(context, const HomePage(),
+                                clearStack: true);
+                          }
+                        } else {
+                          Fluttertoast.showToast(msg: response.body);
+                        }
+
                         isLoading = false;
                         setState(() {});
 
-                        // goToPage(context, const HomePage(), clearStack: true);
+                        // go ToPage(context, const HomePage(), clearStack: true);
                       },
                       text: "Proceed",
                     ),

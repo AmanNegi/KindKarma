@@ -21,6 +21,7 @@ class MyApp extends StatelessWidget {
         fontFamily: GoogleFonts.poppins().fontFamily,
       ),
       home: const AuthPage(),
+      // home: const HomePage(),
     );
   }
 }

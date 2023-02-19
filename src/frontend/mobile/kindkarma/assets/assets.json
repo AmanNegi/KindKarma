@@ -1,0 +1,26 @@
+{
+  "data": [
+    {
+      "name": "Event Name 1 ",
+      "description": "Description",
+      "organizers": ["a", "b", "c"],
+      "participants": ["u1", "u2", "u3"],
+      "place": "",
+      "helpDetails": {
+        "phone": "4362790234",
+        "email": "asterjoules@gmail.com"
+      }
+    },  
+    {
+      "name": "Event Name 2",
+      "description": "Description",
+      "organizers": ["a", "b", "c"],
+      "participants": ["u1", "u2", "u3"],
+      "place": "",
+      "helpDetails": {
+        "phone": "4362790234",
+        "email": "asterjoules@gmail.com"
+      }
+    }
+  ]
+}
