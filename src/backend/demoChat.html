@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Chat App</title>
+</head>
+<body>
+  <div id="chat-window">
+    <div id="chat-messages"></div>
+    <form id="chat-form">
+      <input type="text" id="chat-input" placeholder="Type a message...">
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    const socket = new WebSocket('ws://localhost:3000');
+
+    socket.addEventListener('open', function(event) {
+      console.log('Connection established');
+    });
+
+    socket.addEventListener('message', function(event) {
+      const message = event.data;
+      const chatMessages = document.getElementById('chat-messages');
+      const newMessage = document.createElement('div');
+      newMessage.textContent = message;
+      chatMessages.appendChild(newMessage);
+    });
+
+    socket.addEventListener('close', function(event) {
+      console.log('Connection closed');
+    });
+
+    const chatForm = document.getElementById('chat-form');
+    chatForm.addEventListener('submit', function(event) {
+      event.preventDefault();
+      const chatInput = document.getElementById('chat-input');
+      const message = chatInput.value;
+      socket.send(message);
+      chatInput.value = '';
+    });
+  </script>
+</body>
+</html>
