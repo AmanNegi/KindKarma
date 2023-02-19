@@ -38,6 +38,8 @@ export default function SplitScreen() {
             A platform 
           </Text>
           <Stack direction={{ base: 'column', md: 'row' }} spacing={4}>
+          
+            <Link to="/Signup">
             <Button
               rounded={'full'}
               bg={'blue.400'}
@@ -47,7 +49,12 @@ export default function SplitScreen() {
               }}>
              Sign up
             </Button>
+            </Link>
+            
+            <Link to="/Login">
             <Button rounded={'full'}>Sign In</Button>
+            </Link>
+            
           </Stack>
         </Stack>
       </Flex>
