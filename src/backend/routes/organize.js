@@ -15,7 +15,7 @@ router.post("/demo-add", async (req, res) => {
 
 router.post("/add", async (req, res) => {
   //TODO: Add Checks Here
-  var event = new VolunteeringEvent(cloneData);
+  var event = new VolunteeringEvent(req.body);
   await event.save();
 
   return res.status(200).json({ message: "Added Data Successfully" });
