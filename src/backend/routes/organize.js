@@ -10,7 +10,7 @@ router.get("/", async (req, res) => {
 router.post("/demo-add", async (req, res) => {
   var event = new VolunteeringEvent(cloneData);
   await event.save();
-  return res.status(200).json("Added Demo Data Successfully");
+  return res.status(200).json({ message: "Added Demo Data Successfully" });
 });
 
 router.post("/add", async (req, res) => {
@@ -18,12 +18,12 @@ router.post("/add", async (req, res) => {
   var event = new VolunteeringEvent(cloneData);
   await event.save();
 
-  return res.status(200).json("Added Data Successfully");
+  return res.status(200).json({ message: "Added Data Successfully" });
 });
 
 router.get("/list", async (req, res) => {
   var data = await VolunteeringEvent.find({});
-  return res.status(200).json(data);
+  return res.status(200).json({ data: data });
 });
 
 module.exports = router;
