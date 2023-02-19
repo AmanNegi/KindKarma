@@ -47,7 +47,7 @@ export default function SignupCard() {
                 </FormControl>
               </Box>
               <Box>
-                <FormControl id="lastName">
+                <FormControl id="lastName" isRequired>
                   <FormLabel>Last Name</FormLabel>
                   <Input type="text" />
                 </FormControl>
@@ -76,10 +76,10 @@ export default function SignupCard() {
               <Button
                 loadingText="Submitting"
                 size="lg"
-                bg={'blue.400'}
+                bg={'green.400'}
                 color={'white'}
                 _hover={{
-                  bg: 'blue.500',
+                  bg: 'green.500',
                 }}>
                 Sign up
               </Button>
