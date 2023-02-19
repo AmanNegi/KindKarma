@@ -26,6 +26,29 @@ router.get("/list", async (req, res) => {
   return res.status(200).json({ data: data });
 });
 
+//! ADMIN LEVEL FUNCTION
+router.delete("/removeAll", async (req, res) => {
+  var { secretKey } = req.body;
+
+  //? NOTE: If you are working locally there is no SECRET_KEY
+  if (!secretKey || secretKey !== process.env.SECRET_KEY)
+    return res.status(400).json({ message: "You are not allowed to delete" });
+
+  await VolunteeringEvent.remove({});
+  return res.status(200).json({ message: "Removed all items successfully" });
+});
+
+router.delete("/remove", async (req, res) => {
+  var { id } = req.body;
+
+  if (!id) {
+    return res.status(400).json({ message: "You are not allowed to delete" });
+  }
+
+  await VolunteeringEvent.remove({ id: id });
+  return res.status(200).json({ message: "Removed" });
+});
+
 module.exports = router;
 
 var cloneData = {
