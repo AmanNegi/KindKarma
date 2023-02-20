@@ -1,4 +1,4 @@
-# KindKarma🌱 ~ MHacks 15 
+# [KindKarma](https://devpost.com/software/kindkarma)🌱 ~ MHacks 15 
 
 ![](/screenshots/banner.png)
 > Watch Demo Video [here](https://youtu.be/9YCkj-JEe34) 🎥
