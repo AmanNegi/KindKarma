@@ -1,5 +1,7 @@
-# KindKarma 🌱
+# KindKarma🌱 ~ MHacks 15 
 
+![](/screenshots/banner.png)
+> Watch Demo Video [here](https://youtu.be/9YCkj-JEe34) 🎥
 ## Inspiration
 Many of us want to get involved in volunteering activities but we are not sure how to go about in doing it. Finding volunteer events can be quite a hassle as it takes so much time and researching. This inspired us to create KindKarma, a mobile and web platform that makes it easier to have a positive impact in your community through volunteering. 
 
@@ -40,3 +42,11 @@ We are using GitHub for the following reasons:
 - Enhancing the mobile app for the project
 - Adding more features
 - Increasing user optimization by utilizing ML and AI
+
+
+## Contributors
+```
+Ishwarya
+Hindu
+Aman Negi
+```
