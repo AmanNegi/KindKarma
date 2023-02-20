@@ -1,4 +1,4 @@
-# KindKarma
+# KindKarma 🌱
 
 ## Inspiration
 Many of us want to get involved in volunteering activities but we are not sure how to go about in doing it. Finding volunteer events can be quite a hassle as it takes so much time and researching. This inspired us to create KindKarma, a mobile and web platform that makes it easier to have a positive impact in your community through volunteering. 
